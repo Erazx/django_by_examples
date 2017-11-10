@@ -5,10 +5,20 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+# Customized Query Manager
+class PublishedManager(models.Manager):
+    """Return Queryset where status='published'."""
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
+
+
 # Create your models here.
 class Post(models.Model):
     """Model Post."""
 
+    # Query Manager
+    objects = models.Manager() # default manager
+    published = PublishedManager() # Customized Manager
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
