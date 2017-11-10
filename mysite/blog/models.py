@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 # Customized Query Manager
@@ -48,3 +49,9 @@ class Post(models.Model):
     def __str__(self):
         """Post Object str."""
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.publish.year,
+                                                 self.publish.strftime('%m'),
+                                                 self.pubhlis.strftime('%d'),
+                                                 self.slug])
