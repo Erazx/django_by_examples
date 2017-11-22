@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Import Public modules."""
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -22,5 +22,14 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ['status', 'publish']
 
 
+class CommentAdmin(admin.ModelAdmin):
+    """Customized Comment Admin Page."""
+
+    list_display = ('name', 'email', 'post', 'created', 'updated', 'active')
+    list_filter = ('created', 'updated', 'active')
+    search_fields = ('name', 'email', 'body')
+
+
 # Register your models here.
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
