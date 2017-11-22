@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from taggit.managers import TaggableManager
 
 
 # Customized Query Manager
@@ -20,6 +21,7 @@ class Post(models.Model):
     # Query Manager
     objects = models.Manager() # default manager
     published = PublishedManager() # Customized Manager
+    tags = TaggableManager() # Taggit manager
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
